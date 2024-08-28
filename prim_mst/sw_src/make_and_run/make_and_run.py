@@ -13,9 +13,6 @@ def changeSizeDef(file, size):
 def make():
     subprocess.run(["make"], cwd=".")
 
-def createGraph(file):
-    subprocess.run([file], cwd="./app")
-
 def computeMST(file):
     subprocess.run([file], cwd="./app")
     
