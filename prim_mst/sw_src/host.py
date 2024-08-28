@@ -17,7 +17,7 @@ def main(size=None):
     make()
 
     createGraphAdjMatrix("./graphs/graph.txt", size)
-    computeMST("./prim_mst.exe")
+    computeMST("./mst")
 
     checkFiles("./graphs/graph.txt", "./graphs/mst.txt")
 

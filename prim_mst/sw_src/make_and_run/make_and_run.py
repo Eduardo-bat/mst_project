@@ -7,12 +7,18 @@ def readSizeDef(file):
                 return int(line.split()[2])
 
 def changeSizeDef(file, size):
+    with open(file, "r") as f:
+        lines = f.readlines()
     with open(file, "w") as f:
-        f.write(f"#define V {size}\r\n")
+        for line in lines:
+            if "#define V" in line:
+                f.write(f"#define V {size}\n")
+            else:
+                f.write(line)
 
 def make():
     subprocess.run(["make"], cwd=".")
 
 def computeMST(file):
-    subprocess.run([file], cwd="./app")
+    subprocess.run([file], cwd="./bin")
     

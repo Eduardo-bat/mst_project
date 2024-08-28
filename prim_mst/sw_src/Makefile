@@ -1,41 +1,45 @@
-# Compiler
+# Compiler and flags
 CXX = g++
-
-# Compiler flags
-CXXFLAGS = -Wall -Wextra -Werror -pedantic -O3
+CXXFLAGS = -Wall -Wextra -Werror -pedantic -O3 -Wconversion -Wshadow
 
 # Directories
 SRC_DIR = src
+INCLUDE_DIR = $(SRC_DIR)/include
+BIN_DIR = bin
 OBJ_DIR = obj
-APP_DIR = app
 
 # Source files
-SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
+SRC_FILES = $(SRC_DIR)/mst.cpp $(SRC_DIR)/static_mst_mtx.cpp
 
 # Object files
-OBJECTS = $(SOURCES:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
+OBJ_FILES = $(OBJ_DIR)/mst.o $(OBJ_DIR)/static_mst_mtx.o
 
-# Executable names
-EXECUTABLES = $(SOURCES:$(SRC_DIR)/%.cpp=$(APP_DIR)/%.exe)
+# Executable
+EXEC = $(BIN_DIR)/mst
+
+# Include directories
+INCLUDES = -I $(INCLUDE_DIR)
 
 # Header files
-HEADERS = $(wildcard $(SRC_DIR)/include/*.h)
+HEADERS = $(INCLUDE_DIR)/size_def.h
 
 # Default target
-all: $(EXECUTABLES)
+all: $(EXEC)
 
-# Rule to build executables
-$(APP_DIR)/%.exe: $(OBJ_DIR)/%.o
-	@mkdir -p $(APP_DIR)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+# Link object files to create the executable
+$(EXEC): $(OBJ_FILES) | $(BIN_DIR)
+	$(CXX) $(CXXFLAGS) $(OBJ_FILES) -o $@
 
-# Rule to build object files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(HEADERS)
-	@mkdir -p $(OBJ_DIR)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+# Compile source files into object files
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(HEADERS) | $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
-# Clean target
+# Create bin and obj directories if they don't exist
+$(BIN_DIR) $(OBJ_DIR):
+	mkdir -p $@
+
+# Clean up build files
 clean:
-	rm -rf $(OBJ_DIR) $(APP_DIR)
+	rm -f $(OBJ_FILES) $(EXEC)
 
 .PHONY: all clean
