@@ -10,16 +10,19 @@ int main()
 {
 	int graph[V][V];
 
-	if (readGraph(graph, GRAPHS_DIR + "graph.txt") != 0) {
+	std::string graph_filepath = GRAPHS_DIR + "graph" + std::to_string(V) + ".txt";
+	std::string mst_filepath	 = GRAPHS_DIR + "mst" + std::to_string(V) + ".txt";
+
+	if (readGraph(graph, GRAPHS_DIR + graph_filepath) != 0) {
 		std::cout << "Error reading graph" << std::endl;
 		return 1;
 	}
 
-	int parent[V];
+	std::size_t parent[V];
 
 	primMST(graph, parent);
 
-	if (writeMSTtoFile(parent, graph) != 0) {
+	if (writeMSTtoFile(parent, graph, mst_filepath) != 0) {
 		std::cout << "Error writing MST" << std::endl;
 		return 1;
 	}

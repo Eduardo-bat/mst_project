@@ -10,17 +10,17 @@
 
 #define GRAPHS_DIR std::string("../graphs/")
 
-int minKey(int key[V], bool mstSet[V]);
+std::size_t minKey(int key[V], bool mstSet[V]);
 void initmtx(int mtx[V][V]);
-void fillMSTmtx(int mst[V][V], int parent[V], int graph[V][V]);
-int writetoFile(int mtx[V][V]);
-int writeMSTtoFile(int parent[V], int graph[V][V]);
+void fillMSTmtx(int mst[V][V], std::size_t parent[V], int graph[V][V]);
+int writetoFile(int mtx[V][V], std::string filepath);
+int writeMSTtoFile(std::size_t parent[V], int graph[V][V], std::string filepath);
 void initKeysMSTset(int key[V], bool mstSet[V]);
-bool isedge(int graph[V][V], int u, int v);
-bool isInSet(bool mstSet[V], int v);
-bool costsLess(int graph[V][V], int u, int v, int key[V]);
-void buildMST(int graph[V][V], int parent[V]);
-void primMST(int graph[V][V], int parent[V]);
-int readGraph(int graph[V][V], std::string filename);
+bool isedge(int graph[V][V], std::size_t u, std::size_t v);
+bool isInSet(bool mstSet[V], std::size_t v);
+bool costsLess(int graph[V][V], std::size_t u, std::size_t v, int key[V]);
+void buildMST(int graph[V][V], std::size_t parent[V]);
+void primMST(int graph[V][V], std::size_t parent[V]);
+int readGraph(int graph[V][V], std::string filepath);
 
 #endif

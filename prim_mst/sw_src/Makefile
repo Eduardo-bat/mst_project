@@ -8,6 +8,9 @@ INCLUDE_DIR = $(SRC_DIR)/include
 BIN_DIR = bin
 OBJ_DIR = obj
 
+# Binary name
+BIN_NAME = mst
+
 # Source files
 SRC_FILES = $(SRC_DIR)/mst.cpp $(SRC_DIR)/static_mst_mtx.cpp
 
@@ -15,7 +18,7 @@ SRC_FILES = $(SRC_DIR)/mst.cpp $(SRC_DIR)/static_mst_mtx.cpp
 OBJ_FILES = $(OBJ_DIR)/mst.o $(OBJ_DIR)/static_mst_mtx.o
 
 # Executable
-EXEC = $(BIN_DIR)/mst
+EXEC = $(BIN_DIR)/$(BIN_NAME)
 
 # Include directories
 INCLUDES = -I $(INCLUDE_DIR)
